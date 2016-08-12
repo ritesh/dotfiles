@@ -34,7 +34,7 @@ set rtp+=/usr/local/opt/fzf
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " always have the filebrowser
-autocmd vimenter * NERDTree
+" autocmd vimenter * NERDTree
 " ctrl g to toggle the filebrowser
 map <C-n> :NERDTreeToggle<CR>
 " get rid of nerdtree if it's the only plugin left
