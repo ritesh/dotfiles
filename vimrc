@@ -5,6 +5,7 @@ colorscheme molokai
 set guifont=Monaco:h12
 " use goimports for formatting
 let g:go_fmt_command = "goimports"
+set mouse=a
 
 " turn highlighting on
 let g:go_highlight_functions = 1
@@ -24,19 +25,22 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+" Don't like swp files 
+set backupdir=~/.vim/backup_files//
+set undodir=~/.vim/undo_files//
+set directory=~/.vim/swap_files//
+
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_html_tidy_ignore_errors = [
+    \  'plain text isn''t allowed in <head> elements',
+    \  '<base> escaping malformed URI reference',
+    \  'discarding unexpected <body>',
+    \  '<script> escaping malformed URI reference',
+    \  '</head> isn''t allowed in <body> elements'
+    \ ]
+let g:syntastic_html_tidy_quiet_messages = { "level" : "warnings" }
 
 set rtp+=/usr/local/opt/fzf
-" set up filebrowser whenever vim starts
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" always have the filebrowser
-" autocmd vimenter * NERDTree
-" ctrl g to toggle the filebrowser
-map <C-n> :NERDTreeToggle<CR>
-" get rid of nerdtree if it's the only plugin left
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
