@@ -1,22 +1,25 @@
 call plug#begin('~/.config/vim/plugged')
 
 Plug 'fatih/vim-go'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'Raimondi/delimitMate'
+" Plug 'AndrewRadev/splitjoin.vim'
+" Plug 'Raimondi/delimitMate'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'itchyny/lightline.vim'
-Plug 'tomasr/molokai'
-Plug 'tpope/vim-commentary'
+" Plug 'itchyny/lightline.vim'
+" Plug 'tomasr/molokai'
+" Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-scriptease'
 Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'unblevable/quick-scope'  
+" Plug 'unblevable/quick-scope'  
 Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
 
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 't9md/vim-choosewin'
 Plug 'garyburd/go-explorer'
+
+Plug 'davidhalter/jedi-vim'
 
 " filetype plugins
 Plug 'vim-ruby/vim-ruby'
@@ -34,7 +37,6 @@ call plug#end()
 set nocompatible
 filetype off
 filetype plugin indent on
-
 set ttyfast
 set ttymouse=xterm2
 set ttyscroll=3
@@ -80,8 +82,6 @@ if has('persistent_undo')
 endif
 
 if has("gui_macvim")
-  " No toolbars, menu or scrollbars in the GUI
-  set guifont=Source\ Code\ Pro:h13
   set clipboard+=unnamed
   set vb t_vb=
   set guioptions-=m  "no menu
@@ -356,14 +356,6 @@ command! MyCtrlPTag call MyCtrlPTag()
 nmap <C-b> :CtrlPCurWD<cr>
 imap <C-b> <esc>:CtrlPCurWD<cr>
 
-" ==================== delimitMate ====================
-let g:delimitMate_expand_cr = 1   
-let g:delimitMate_expand_space = 1    
-let g:delimitMate_smart_quotes = 1    
-let g:delimitMate_expand_inside_quotes = 0    
-let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'   
-
-imap <expr> <CR> pumvisible() ? "\<c-y>" : "<Plug>delimitMateCR"
 
 " ==================== Lightline ====================
 "
@@ -495,49 +487,12 @@ let NERDTreeShowHidden=1
 " ==================== vim-json ====================
 let g:vim_json_syntax_conceal = 0
 
-" ==================== UltiSnips ====================
-function! g:UltiSnips_Complete()
-  call UltiSnips#ExpandSnippet()
-  if g:ulti_expand_res == 0
-    if pumvisible()
-      return "\<C-n>"
-    else
-      call UltiSnips#JumpForwards()
-      if g:ulti_jump_forwards_res == 0
-        return "\<TAB>"
-      endif
-    endif
-  endif
-  return ""
-endfunction
-
-function! g:UltiSnips_Reverse()
-  call UltiSnips#JumpBackwards()
-  if g:ulti_jump_backwards_res == 0
-    return "\<C-P>"
-  endif
-
-  return ""
-endfunction
-
-
-if !exists("g:UltiSnipsJumpForwardTrigger")
-  let g:UltiSnipsJumpForwardTrigger = "<tab>"
-endif
-
-if !exists("g:UltiSnipsJumpBackwardTrigger")
-  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-endif
-
-au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
-
 " ==================== Various other plugin settings ====================
 nmap  -  <Plug>(choosewin)
 
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
+set fillchars+=vert:\ 
 
 
 " vim: sw=2 sw=2 et
