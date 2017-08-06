@@ -1,19 +1,21 @@
 call plug#begin('~/.config/vim/plugged')
 
 Plug 'fatih/vim-go'
+Plug 'dylon/vim-antlr'
 " Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'Raimondi/delimitMate'
+Plug 'itchyny/lightline.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'itchyny/lightline.vim'
-" Plug 'tomasr/molokai'
-" Plug 'tpope/vim-commentary'
+Plug 'tomasr/molokai'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-scriptease'
 Plug 'ConradIrwin/vim-bracketed-paste'
 " Plug 'unblevable/quick-scope'  
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 
 " Plug 'SirVer/ultisnips'
 Plug 't9md/vim-choosewin'
@@ -494,5 +496,6 @@ nmap  -  <Plug>(choosewin)
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 set fillchars+=vert:\ 
 
-
+au BufRead,BufNewFile *.g4 set filetype=antlr4
 " vim: sw=2 sw=2 et
+
