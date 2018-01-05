@@ -1,30 +1,28 @@
 call plug#begin('~/.config/vim/plugged')
+"====================================================
+"===================== PLUGINS ======================
 
-Plug 'fatih/vim-go'
-Plug 'dylon/vim-antlr'
-" Plug 'AndrewRadev/splitjoin.vim'
-" Plug 'Raimondi/delimitMate'
-Plug 'itchyny/lightline.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'itchyny/lightline.vim'
-Plug 'tomasr/molokai'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-scriptease'
-Plug 'ConradIrwin/vim-bracketed-paste'
-" Plug 'unblevable/quick-scope'  
-Plug 'scrooloose/nerdtree'
-" Plug 'scrooloose/syntastic'
+Plug 'fatih/vim-go' " Go plugin
+Plug 'itchyny/lightline.vim' "Nice status line
+Plug 'ctrlpvim/ctrlp.vim' "Find stuff
+Plug 'tomasr/molokai' "Colour theme
+Plug 'tpope/vim-commentary' "Comment stuff out
+Plug 'tpope/vim-fugitive' "Git bindings
+Plug 'tpope/vim-repeat' " Used by other plugins to repeat non-native motions
+Plug 'ConradIrwin/vim-bracketed-paste' "Better paste support
+Plug 'scrooloose/nerdtree' "Filebrowser
+Plug 't9md/vim-choosewin' "Window chooser
+Plug 'Valloric/YouCompleteMe' "Code completion - PITA to get working but amazing if it works!
+" Plug 'davidhalter/jedi-vim' "Code completion (Commented out if YCM doesn't
+" work)
+Plug 'hashivim/vim-terraform' "Terraform support
 
-" Plug 'SirVer/ultisnips'
-Plug 't9md/vim-choosewin'
-Plug 'garyburd/go-explorer'
-
-Plug 'davidhalter/jedi-vim'
+"Dash compatability
+Plug 'rizzatti/dash.vim'
 
 " filetype plugins
 Plug 'vim-ruby/vim-ruby'
+Plug 'dylon/vim-antlr' " ANTLR support
 Plug 'elzr/vim-json', {'for' : 'json'}
 Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
 Plug 'fatih/vim-nginx' , {'for' : 'nginx'}
@@ -96,6 +94,7 @@ if has("gui_macvim")
   let macvim_skip_colorscheme=1
   colorscheme molokai
 
+  "D is the cmd key
   " Open goto symbol on current buffer
   nmap <D-r> :MyCtrlPTag<cr>
   imap <D-r> <esc>:MyCtrlPTag<cr>
@@ -256,16 +255,6 @@ if !has('gui_running')
   augroup END
 endif
 
-" Visual Mode */# from Scrooloose {{{
-function! s:VSetSearch()
-  let temp = @@
-  norm! gvy
-  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-  let @@ = temp
-endfunction
-
-vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
-vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 
 " create a go doc comment based on the word under the cursor
 function! s:create_go_doc_comment()
@@ -276,8 +265,6 @@ endfunction
 nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
 
 
-"====================================================
-"===================== PLUGINS ======================
 
 " ==================== Fugitive ====================
 vnoremap <leader>gb :Gblame<CR>
@@ -490,12 +477,23 @@ let NERDTreeShowHidden=1
 let g:vim_json_syntax_conceal = 0
 
 " ==================== Various other plugin settings ====================
+"Window chooser
 nmap  -  <Plug>(choosewin)
+let g:choosewin_overlay_enable = 1
+
+"hack for youcompleteme https://github.com/junegunn/vim-plug/issues/75
+" 
+let g:plug_timeout = 90000
 
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 set fillchars+=vert:\ 
 
+" ANTLR
 au BufRead,BufNewFile *.g4 set filetype=antlr4
-" vim: sw=2 sw=2 et
 
+" Terraform
+let g:terraform_align=1
+let g:terraform_remap_spacebar=1
+autocmd FileType terraform setlocal commentstring=#%s
+" vim: sw=2 sw=2 et
