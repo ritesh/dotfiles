@@ -1,3 +1,8 @@
+"riteshsinha@Riteshs-MacBook-Air ~ % ls -l ~/.vim/pack/plugins/start 
+"total 0
+"drwxr-xr-x  10 riteshsinha  staff  320 15 Mar 15:10 ctrlp
+"drwxr-xr-x  12 riteshsinha  staff  384 15 Mar 15:13 lightline
+
 set nocompatible
 filetype off
 filetype plugin indent on
